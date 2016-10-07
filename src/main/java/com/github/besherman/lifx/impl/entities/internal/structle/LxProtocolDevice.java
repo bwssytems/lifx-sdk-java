@@ -36,6 +36,7 @@ import com.github.besherman.lifx.impl.entities.internal.structle.StructleTypes.U
 import com.github.besherman.lifx.impl.entities.internal.structle.StructleTypes.UInt32;
 import com.github.besherman.lifx.impl.entities.internal.structle.StructleTypes.UInt64;
 import com.github.besherman.lifx.impl.entities.internal.structle.StructleTypes.UInt8;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
@@ -44,8 +45,10 @@ public class LxProtocolDevice {
 
     public enum Service { // Enum Lx::Protocol::Device::Service
         LX_PROTOCOL_DEVICE_SERVICE_UDP, // LX_PROTOCOL_DEVICE_SERVICE_UDP = 1
-        LX_PROTOCOL_DEVICE_SERVICE_TCP,				// LX_PROTOCOL_DEVICE_SERVICE_TCP = 2
-    };
+        LX_PROTOCOL_DEVICE_SERVICE_TCP,                // LX_PROTOCOL_DEVICE_SERVICE_TCP = 2
+    }
+
+    ;
 
     public static final HashMap<Service, Integer> serviceValueMap;
     public static final HashMap<Integer, Service> serviceMap;
@@ -63,10 +66,10 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::SetSite 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class SetSite extends LxProtocolTypeBase { 
+    public static class SetSite extends LxProtocolTypeBase {
 
         // Fields: site;
-        private byte[] site = new byte[6];		// Field: site - Structle::Bytes byte offset: 0
+        private byte[] site = new byte[6];        // Field: site - Structle::Bytes byte offset: 0
 
         private static final int PAYLOAD_SIZE = 6;
 
@@ -75,11 +78,11 @@ public class LxProtocolDevice {
         }
 
         public SetSite(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("Lx::Protocol::Device::SetSite has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }            
-            
+            }
+
             byte[] member0Data = new byte[6];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -105,7 +108,7 @@ public class LxProtocolDevice {
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, byte[] site) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = site;
 
@@ -147,18 +150,17 @@ public class LxProtocolDevice {
         }
     }
 
-    
-    
+
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetPanGateway 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetPanGateway extends LxProtocolTypeBase { 
+    public static class GetPanGateway extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetPanGateway() {
         }
-        
-        public GetPanGateway(byte[] bytes, int initialOffset) {            
+
+        public GetPanGateway(byte[] bytes, int initialOffset) {
         }
 
         @Override
@@ -180,8 +182,8 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////   
     public static class StatePanGateway extends LxProtocolTypeBase {
         // Fields: service, port;
-        private UInt8 service;			// Field: service - Structle::Uint8 byte offset: 0
-        private UInt32 port;			// Field: port - Structle::Uint32 byte offset: 1
+        private UInt8 service;            // Field: service - Structle::Uint8 byte offset: 0
+        private UInt32 port;            // Field: port - Structle::Uint32 byte offset: 1
 
         private static final int PAYLOAD_SIZE = 5;
 
@@ -190,11 +192,11 @@ public class LxProtocolDevice {
         }
 
         public StatePanGateway(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("LX_PROTOCOL_DEVICE_STATE_PAN_GATEWAY has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }            
-            
+            }
+
             byte[] member0Data = new byte[1];
             member0Data[0] = bytes[initialOffset + 0];
 
@@ -225,12 +227,12 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            service.printValue("service");			// Field: service - Structle::Uint8 byte offset: 5
-            port.printValue("port");			// Field: port - Structle::Uint32 byte offset: 5
+            service.printValue("service");            // Field: service - Structle::Uint8 byte offset: 5
+            port.printValue("port");            // Field: port - Structle::Uint32 byte offset: 5
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt8 service, UInt32 port) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = service.getBytes();
 
@@ -288,7 +290,6 @@ public class LxProtocolDevice {
     }
 
 
-    
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetTime 
     ////////////////////////////////////////////////////////////////////////////   
@@ -300,10 +301,10 @@ public class LxProtocolDevice {
         }
 
         public GetTime(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("Lx::Protocol::Device::GetTime has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                        
+            }
         }
 
         public GetTime(Object padding) {
@@ -328,7 +329,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////   
     public static class SetTime extends LxProtocolTypeBase {
         // Fields: time;
-        private UInt64 time;			// Field: time - Structle::Uint64 byte offset: 0
+        private UInt64 time;            // Field: time - Structle::Uint64 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 8;
 
@@ -337,11 +338,11 @@ public class LxProtocolDevice {
         }
 
         public SetTime(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("Lx::Protocol::Device::SetTime has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }            
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -366,11 +367,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            time.printValue("time");			// Field: time - Structle::Uint64 byte offset: 8
+            time.printValue("time");            // Field: time - Structle::Uint64 byte offset: 8
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 time) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = time.getBytes();
 
@@ -415,9 +416,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateTime 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateTime extends LxProtocolTypeBase { 
+    public static class StateTime extends LxProtocolTypeBase {
         // Fields: time;
-        private UInt64 time;			// Field: time - Structle::Uint64 byte offset: 0
+        private UInt64 time;            // Field: time - Structle::Uint64 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 8;
 
@@ -426,12 +427,12 @@ public class LxProtocolDevice {
         }
 
         public StateTime(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("LX_PROTOCOL_DEVICE_STATE_TIME has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }            
-            
-            
+            }
+
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -456,11 +457,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            time.printValue("time");			// Field: time - Structle::Uint64 byte offset: 8
+            time.printValue("time");            // Field: time - Structle::Uint64 byte offset: 8
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 time) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = time.getBytes();
 
@@ -504,7 +505,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetResetSwitch 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetResetSwitch extends LxProtocolTypeBase { 
+    public static class GetResetSwitch extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetResetSwitch(byte[] bytes) {
@@ -512,10 +513,10 @@ public class LxProtocolDevice {
         }
 
         public GetResetSwitch(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("Lx::Protocol::Device::GetResetSwitch has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                        
+            }
         }
 
         public GetResetSwitch() {
@@ -538,9 +539,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateResetSwitch 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateResetSwitch extends LxProtocolTypeBase { 
+    public static class StateResetSwitch extends LxProtocolTypeBase {
         // Fields: position;
-        private UInt8 position;			// Field: position - Structle::Uint8 byte offset: 0
+        private UInt8 position;            // Field: position - Structle::Uint8 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 1;
 
@@ -549,11 +550,11 @@ public class LxProtocolDevice {
         }
 
         public StateResetSwitch(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("Lx::Protocol::Device::StateResetSwitch has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                        
-            
+            }
+
             byte[] member0Data = new byte[1];
             member0Data[0] = bytes[initialOffset + 0];
 
@@ -571,11 +572,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            position.printValue("position");			// Field: position - Structle::Uint8 byte offset: 1
+            position.printValue("position");            // Field: position - Structle::Uint8 byte offset: 1
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt8 position) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = position.getBytes();
 
@@ -620,7 +621,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetDummyLoad 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetDummyLoad extends LxProtocolTypeBase { 
+    public static class GetDummyLoad extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetDummyLoad(byte[] bytes) {
@@ -628,10 +629,10 @@ public class LxProtocolDevice {
         }
 
         public GetDummyLoad(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("Lx::Protocol::Device::GetDummyLoad has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
+            }
         }
 
         public GetDummyLoad() {
@@ -642,7 +643,7 @@ public class LxProtocolDevice {
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
         }
 
         public static void loadMessageDataWithPayloadAtDefaultOffset(byte[] messageData) {
@@ -667,9 +668,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::SetDummyLoad 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class SetDummyLoad extends LxProtocolTypeBase { 
+    public static class SetDummyLoad extends LxProtocolTypeBase {
         // Fields: on;
-        private Bool8 on;			// Field: on - Structle::Bool byte offset: 0
+        private Bool8 on;            // Field: on - Structle::Bool byte offset: 0
 
         private static final int PAYLOAD_SIZE = 1;
 
@@ -678,11 +679,11 @@ public class LxProtocolDevice {
         }
 
         public SetDummyLoad(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("Lx::Protocol::Device::SetDummyLoad has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                        
-            
+            }
+
             byte[] member0Data = new byte[1];
             member0Data[0] = bytes[initialOffset + 0];
 
@@ -700,11 +701,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            on.printValue("on");			// Field: on - Structle::Bool byte offset: 1
+            on.printValue("on");            // Field: on - Structle::Bool byte offset: 1
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, Bool8 on) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = on.getBytes();
 
@@ -748,9 +749,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateDummyLoad 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateDummyLoad extends LxProtocolTypeBase { 
+    public static class StateDummyLoad extends LxProtocolTypeBase {
         // Fields: on;
-        private Bool8 on;			// Field: on - Structle::Bool byte offset: 0
+        private Bool8 on;            // Field: on - Structle::Bool byte offset: 0
 
         private static final int PAYLOAD_SIZE = 1;
 
@@ -759,10 +760,10 @@ public class LxProtocolDevice {
         }
 
         public StateDummyLoad(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
+            }
             byte[] member0Data = new byte[1];
             member0Data[0] = bytes[initialOffset + 0];
 
@@ -779,11 +780,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            on.printValue("on");			// Field: on - Structle::Bool byte offset: 1
+            on.printValue("on");            // Field: on - Structle::Bool byte offset: 1
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, Bool8 on) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = on.getBytes();
 
@@ -827,7 +828,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetMeshInfo 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetMeshInfo extends LxProtocolTypeBase { 
+    public static class GetMeshInfo extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetMeshInfo(byte[] bytes) {
@@ -835,11 +836,11 @@ public class LxProtocolDevice {
         }
 
         public GetMeshInfo(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetMeshInfo() {
@@ -863,13 +864,13 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateMeshInfo 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateMeshInfo extends LxProtocolTypeBase { 
+    public static class StateMeshInfo extends LxProtocolTypeBase {
 
         // Fields: signal, tx, rx, mcu_temperature;
-        private Float32 signal;				// Field: signal - Structle::Float byte offset: 0
-        private UInt32 tx;			// Field: tx - Structle::Uint32 byte offset: 4
-        private UInt32 rx;			// Field: rx - Structle::Uint32 byte offset: 8
-        private Int16 mcu_temperature;				// Field: mcu_temperature - Structle::Int16 byte offset: 12
+        private Float32 signal;                // Field: signal - Structle::Float byte offset: 0
+        private UInt32 tx;            // Field: tx - Structle::Uint32 byte offset: 4
+        private UInt32 rx;            // Field: rx - Structle::Uint32 byte offset: 8
+        private Int16 mcu_temperature;                // Field: mcu_temperature - Structle::Int16 byte offset: 12
 
         private static final int PAYLOAD_SIZE = 14;
 
@@ -878,11 +879,11 @@ public class LxProtocolDevice {
         }
 
         public StateMeshInfo(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[4];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -940,14 +941,14 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            signal.printValue("signal");				// Field: signal - Structle::Float byte offset: 14
-            tx.printValue("tx");			// Field: tx - Structle::Uint32 byte offset: 14
-            rx.printValue("rx");			// Field: rx - Structle::Uint32 byte offset: 14
-            mcu_temperature.printValue("mcu_temperature");				// Field: mcu_temperature - Structle::Int16 byte offset: 14
+            signal.printValue("signal");                // Field: signal - Structle::Float byte offset: 14
+            tx.printValue("tx");            // Field: tx - Structle::Uint32 byte offset: 14
+            rx.printValue("rx");            // Field: rx - Structle::Uint32 byte offset: 14
+            mcu_temperature.printValue("mcu_temperature");                // Field: mcu_temperature - Structle::Int16 byte offset: 14
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, Float32 signal, UInt32 tx, UInt32 rx, Int16 mcu_temperature) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = signal.getBytes();
 
@@ -1039,7 +1040,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetMeshFirmware 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetMeshFirmware extends LxProtocolTypeBase { 
+    public static class GetMeshFirmware extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetMeshFirmware(byte[] bytes) {
@@ -1047,11 +1048,11 @@ public class LxProtocolDevice {
         }
 
         public GetMeshFirmware(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetMeshFirmware() {
@@ -1074,11 +1075,11 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateMeshFirmware 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateMeshFirmware extends LxProtocolTypeBase { 
+    public static class StateMeshFirmware extends LxProtocolTypeBase {
         // Fields: build, install, version;
-        private UInt64 build;			// Field: build - Structle::Uint64 byte offset: 0
-        private UInt64 install;			// Field: install - Structle::Uint64 byte offset: 8
-        private UInt32 version;			// Field: version - Structle::Uint32 byte offset: 16
+        private UInt64 build;            // Field: build - Structle::Uint64 byte offset: 0
+        private UInt64 install;            // Field: install - Structle::Uint64 byte offset: 8
+        private UInt32 version;            // Field: version - Structle::Uint32 byte offset: 16
 
         private static final int PAYLOAD_SIZE = 20;
 
@@ -1087,11 +1088,11 @@ public class LxProtocolDevice {
         }
 
         public StateMeshFirmware(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -1146,13 +1147,13 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            build.printValue("build");			// Field: build - Structle::Uint64 byte offset: 20
-            install.printValue("install");			// Field: install - Structle::Uint64 byte offset: 20
-            version.printValue("version");			// Field: version - Structle::Uint32 byte offset: 20
+            build.printValue("build");            // Field: build - Structle::Uint64 byte offset: 20
+            install.printValue("install");            // Field: install - Structle::Uint64 byte offset: 20
+            version.printValue("version");            // Field: version - Structle::Uint32 byte offset: 20
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 build, UInt64 install, UInt32 version) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = build.getBytes();
 
@@ -1228,7 +1229,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetWifiInfo 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetWifiInfo extends LxProtocolTypeBase { 
+    public static class GetWifiInfo extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetWifiInfo(byte[] bytes) {
@@ -1236,11 +1237,11 @@ public class LxProtocolDevice {
         }
 
         public GetWifiInfo(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetWifiInfo() {
@@ -1250,7 +1251,7 @@ public class LxProtocolDevice {
         public void printMessageData() {
         }
 
-       
+
         @Override
         public byte[] getBytes() {
             return new byte[0];
@@ -1264,12 +1265,12 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateWifiInfo 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateWifiInfo extends LxProtocolTypeBase { 
+    public static class StateWifiInfo extends LxProtocolTypeBase {
         // Fields: signal, tx, rx, mcu_temperature;
-        private Float32 signal;				// Field: signal - Structle::Float byte offset: 0
-        private UInt32 tx;			// Field: tx - Structle::Uint32 byte offset: 4
-        private UInt32 rx;			// Field: rx - Structle::Uint32 byte offset: 8
-        private Int16 mcu_temperature;				// Field: mcu_temperature - Structle::Int16 byte offset: 12
+        private Float32 signal;                // Field: signal - Structle::Float byte offset: 0
+        private UInt32 tx;            // Field: tx - Structle::Uint32 byte offset: 4
+        private UInt32 rx;            // Field: rx - Structle::Uint32 byte offset: 8
+        private Int16 mcu_temperature;                // Field: mcu_temperature - Structle::Int16 byte offset: 12
 
         private static final int PAYLOAD_SIZE = 14;
 
@@ -1278,11 +1279,11 @@ public class LxProtocolDevice {
         }
 
         public StateWifiInfo(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[4];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -1340,14 +1341,14 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            signal.printValue("signal");				// Field: signal - Structle::Float byte offset: 14
-            tx.printValue("tx");			// Field: tx - Structle::Uint32 byte offset: 14
-            rx.printValue("rx");			// Field: rx - Structle::Uint32 byte offset: 14
-            mcu_temperature.printValue("mcu_temperature");				// Field: mcu_temperature - Structle::Int16 byte offset: 14
+            signal.printValue("signal");                // Field: signal - Structle::Float byte offset: 14
+            tx.printValue("tx");            // Field: tx - Structle::Uint32 byte offset: 14
+            rx.printValue("rx");            // Field: rx - Structle::Uint32 byte offset: 14
+            mcu_temperature.printValue("mcu_temperature");                // Field: mcu_temperature - Structle::Int16 byte offset: 14
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, Float32 signal, UInt32 tx, UInt32 rx, Int16 mcu_temperature) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = signal.getBytes();
 
@@ -1439,7 +1440,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetWifiFirmware 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetWifiFirmware extends LxProtocolTypeBase { 
+    public static class GetWifiFirmware extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetWifiFirmware(byte[] bytes) {
@@ -1447,11 +1448,11 @@ public class LxProtocolDevice {
         }
 
         public GetWifiFirmware(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetWifiFirmware() {
@@ -1462,7 +1463,7 @@ public class LxProtocolDevice {
         }
 
         @Override
-        public byte[] getBytes() {            
+        public byte[] getBytes() {
             return new byte[0];
         }
 
@@ -1474,11 +1475,11 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateWifiFirmware 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateWifiFirmware extends LxProtocolTypeBase { 
+    public static class StateWifiFirmware extends LxProtocolTypeBase {
         // Fields: build, install, version;
-        private UInt64 build;			// Field: build - Structle::Uint64 byte offset: 0
-        private UInt64 install;			// Field: install - Structle::Uint64 byte offset: 8
-        private UInt32 version;			// Field: version - Structle::Uint32 byte offset: 16
+        private UInt64 build;            // Field: build - Structle::Uint64 byte offset: 0
+        private UInt64 install;            // Field: install - Structle::Uint64 byte offset: 8
+        private UInt32 version;            // Field: version - Structle::Uint32 byte offset: 16
 
         private static final int PAYLOAD_SIZE = 20;
 
@@ -1487,11 +1488,11 @@ public class LxProtocolDevice {
         }
 
         public StateWifiFirmware(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -1545,13 +1546,13 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            build.printValue("build");			// Field: build - Structle::Uint64 byte offset: 20
-            install.printValue("install");			// Field: install - Structle::Uint64 byte offset: 20
-            version.printValue("version");			// Field: version - Structle::Uint32 byte offset: 20
+            build.printValue("build");            // Field: build - Structle::Uint64 byte offset: 20
+            install.printValue("install");            // Field: install - Structle::Uint64 byte offset: 20
+            version.printValue("version");            // Field: version - Structle::Uint32 byte offset: 20
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 build, UInt64 install, UInt32 version) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = build.getBytes();
 
@@ -1627,7 +1628,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetPower 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetPower extends LxProtocolTypeBase { 
+    public static class GetPower extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetPower(byte[] bytes) {
@@ -1635,11 +1636,11 @@ public class LxProtocolDevice {
         }
 
         public GetPower(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetPower() {
@@ -1663,9 +1664,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::SetPower 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class SetPower extends LxProtocolTypeBase { 
+    public static class SetPower extends LxProtocolTypeBase {
         // Fields: level;
-        private UInt16 level;			// Field: level - Structle::Uint16 byte offset: 0
+        private UInt16 level;            // Field: level - Structle::Uint16 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 2;
 
@@ -1674,11 +1675,11 @@ public class LxProtocolDevice {
         }
 
         public SetPower(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[2];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -1696,11 +1697,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            level.printValue("level");			// Field: level - Structle::Uint16 byte offset: 2
+            level.printValue("level");            // Field: level - Structle::Uint16 byte offset: 2
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt16 level) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = level.getBytes();
 
@@ -1745,9 +1746,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StatePower 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StatePower extends LxProtocolTypeBase { 
+    public static class StatePower extends LxProtocolTypeBase {
         // Fields: level;
-        private UInt16 level;			// Field: level - Structle::Uint16 byte offset: 0
+        private UInt16 level;            // Field: level - Structle::Uint16 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 2;
 
@@ -1756,11 +1757,11 @@ public class LxProtocolDevice {
         }
 
         public StatePower(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[2];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -1778,11 +1779,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            level.printValue("level");			// Field: level - Structle::Uint16 byte offset: 2
+            level.printValue("level");            // Field: level - Structle::Uint16 byte offset: 2
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt16 level) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = level.getBytes();
 
@@ -1826,7 +1827,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetLabel 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetLabel extends LxProtocolTypeBase { 
+    public static class GetLabel extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetLabel(byte[] bytes) {
@@ -1834,11 +1835,11 @@ public class LxProtocolDevice {
         }
 
         public GetLabel(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetLabel(Object padding) {
@@ -1849,7 +1850,7 @@ public class LxProtocolDevice {
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
         }
 
         public static void loadMessageDataWithPayloadAtDefaultOffset(byte[] messageData) {
@@ -1877,9 +1878,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::SetLabel 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class SetLabel extends LxProtocolTypeBase { 
+    public static class SetLabel extends LxProtocolTypeBase {
         // Fields: label;
-        private String label;			// Field: label - Structle::String byte offset: 0
+        private String label;            // Field: label - Structle::String byte offset: 0
 
         private static final int PAYLOAD_SIZE = 32;
 
@@ -1888,11 +1889,11 @@ public class LxProtocolDevice {
         }
 
         public SetLabel(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[32];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -1946,7 +1947,7 @@ public class LxProtocolDevice {
 
             try {
                 label = new String(subString, "UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
             }
 
@@ -1967,15 +1968,15 @@ public class LxProtocolDevice {
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, String label) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             byte[] labelchars;
             try {
                 labelchars = label.getBytes("UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
             }
-            
+
             //byte[] labelBytes = new byte[labelchars.length];
             byte[] labelBytes = new byte[32];
 
@@ -2013,7 +2014,7 @@ public class LxProtocolDevice {
             byte[] labelchars;
             try {
                 labelchars = label.getBytes("UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
             }
             //byte[] labelBytes = new byte[labelchars.length];
@@ -2046,9 +2047,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateLabel 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateLabel extends LxProtocolTypeBase { 
+    public static class StateLabel extends LxProtocolTypeBase {
         // Fields: label;
-        private String label;			// Field: label - Structle::String byte offset: 0
+        private String label;            // Field: label - Structle::String byte offset: 0
 
         private static final int PAYLOAD_SIZE = 32;
 
@@ -2057,11 +2058,11 @@ public class LxProtocolDevice {
         }
 
         public StateLabel(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[32];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -2103,10 +2104,10 @@ public class LxProtocolDevice {
                     break;
                 }
             }
-            
+
             try {
                 label = new String(member0Data, 0, endOfStringIndex, "UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError("UTF-8 is not avaliable as encoding");
             }
         }
@@ -2129,10 +2130,10 @@ public class LxProtocolDevice {
             byte[] labelchars;
             try {
                 labelchars = label.getBytes("UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
-            }                    
-            
+            }
+
             byte[] labelBytes = new byte[32];
             for (int i = 0; i < 32; i++) {
                 labelBytes[i] = 0x00;
@@ -2170,7 +2171,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetTags 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetTags extends LxProtocolTypeBase { 
+    public static class GetTags extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetTags(byte[] bytes) {
@@ -2178,11 +2179,11 @@ public class LxProtocolDevice {
         }
 
         public GetTags(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetTags() {
@@ -2206,9 +2207,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::SetTags 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class SetTags extends LxProtocolTypeBase { 
+    public static class SetTags extends LxProtocolTypeBase {
         // Fields: tags;
-        private UInt64 tags;			// Field: tags - Structle::Uint64 byte offset: 0
+        private UInt64 tags;            // Field: tags - Structle::Uint64 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 8;
 
@@ -2217,11 +2218,11 @@ public class LxProtocolDevice {
         }
 
         public SetTags(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -2246,11 +2247,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            tags.printValue("tags");			// Field: tags - Structle::Uint64 byte offset: 8
+            tags.printValue("tags");            // Field: tags - Structle::Uint64 byte offset: 8
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 tags) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = tags.getBytes();
 
@@ -2295,9 +2296,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateTags 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateTags extends LxProtocolTypeBase { 
+    public static class StateTags extends LxProtocolTypeBase {
         // Fields: tags;
-        private UInt64 tags;			// Field: tags - Structle::Uint64 byte offset: 0
+        private UInt64 tags;            // Field: tags - Structle::Uint64 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 8;
 
@@ -2306,11 +2307,11 @@ public class LxProtocolDevice {
         }
 
         public StateTags(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -2335,11 +2336,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            tags.printValue("tags");			// Field: tags - Structle::Uint64 byte offset: 8
+            tags.printValue("tags");            // Field: tags - Structle::Uint64 byte offset: 8
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 tags) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = tags.getBytes();
 
@@ -2384,9 +2385,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetTagLabels 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetTagLabels extends LxProtocolTypeBase { 
+    public static class GetTagLabels extends LxProtocolTypeBase {
         // Fields: tags;
-        private UInt64 tags;			// Field: tags - Structle::Uint64 byte offset: 0
+        private UInt64 tags;            // Field: tags - Structle::Uint64 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 8;
 
@@ -2395,11 +2396,11 @@ public class LxProtocolDevice {
         }
 
         public GetTagLabels(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -2424,11 +2425,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            tags.printValue("tags");			// Field: tags - Structle::Uint64 byte offset: 8
+            tags.printValue("tags");            // Field: tags - Structle::Uint64 byte offset: 8
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 tags) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = tags.getBytes();
 
@@ -2473,10 +2474,10 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::SetTagLabels 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class SetTagLabels extends LxProtocolTypeBase { 
+    public static class SetTagLabels extends LxProtocolTypeBase {
         // Fields: tags, label;
-        private UInt64 tags;			// Field: tags - Structle::Uint64 byte offset: 0
-        private String label;			// Field: label - Structle::String byte offset: 8
+        private UInt64 tags;            // Field: tags - Structle::Uint64 byte offset: 0
+        private String label;            // Field: label - Structle::String byte offset: 8
 
         private static final int PAYLOAD_SIZE = 40;
 
@@ -2485,11 +2486,11 @@ public class LxProtocolDevice {
         }
 
         public SetTagLabels(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -2555,7 +2556,7 @@ public class LxProtocolDevice {
 
             try {
                 label = new String(subString, "UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
             }
 
@@ -2576,13 +2577,13 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            tags.printValue("tags");			// Field: tags - Structle::Uint64 byte offset: 40
+            tags.printValue("tags");            // Field: tags - Structle::Uint64 byte offset: 40
             //System.out.println( label);			// Field: label - Structle::String byte offset: 40
             Logger.getLogger(SetTagLabels.class.getName()).log(Level.FINE, label);
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 tags, String label) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = tags.getBytes();
 
@@ -2595,10 +2596,10 @@ public class LxProtocolDevice {
             byte[] labelchars;
             try {
                 labelchars = label.getBytes("UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
             }
-            
+
             byte[] labelBytes = new byte[32];
 
             for (int i = 0; i < 32; i++) {
@@ -2644,9 +2645,9 @@ public class LxProtocolDevice {
             byte[] labelchars;
             try {
                 labelchars = label.getBytes("UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
-                
+
             }
             //byte[] labelBytes = new byte[labelchars.length];
             byte[] labelBytes = new byte[32];
@@ -2678,10 +2679,10 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateTagLabels 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateTagLabels extends LxProtocolTypeBase { 
+    public static class StateTagLabels extends LxProtocolTypeBase {
         // Fields: tags, label;
-        private UInt64 tags;			// Field: tags - Structle::Uint64 byte offset: 0
-        private String label;			// Field: label - Structle::String byte offset: 8
+        private UInt64 tags;            // Field: tags - Structle::Uint64 byte offset: 0
+        private String label;            // Field: label - Structle::String byte offset: 8
 
         private static final int PAYLOAD_SIZE = 40;
 
@@ -2690,11 +2691,11 @@ public class LxProtocolDevice {
         }
 
         public StateTagLabels(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -2760,7 +2761,7 @@ public class LxProtocolDevice {
 
             try {
                 label = new String(subString, "UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
             }
 
@@ -2781,13 +2782,13 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            tags.printValue("tags");			// Field: tags - Structle::Uint64 byte offset: 40
+            tags.printValue("tags");            // Field: tags - Structle::Uint64 byte offset: 40
             //System.out.println( label);			// Field: label - Structle::String byte offset: 40
             Logger.getLogger(StateTagLabels.class.getName()).log(Level.FINE, label);
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 tags, String label) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = tags.getBytes();
 
@@ -2800,10 +2801,10 @@ public class LxProtocolDevice {
             byte[] labelchars;
             try {
                 labelchars = label.getBytes("UTF-8");
-            } catch(UnsupportedEncodingException ex) {
-                throw new InternalError();                
+            } catch (UnsupportedEncodingException ex) {
+                throw new InternalError();
             }
-            
+
             //byte[] labelBytes = new byte[labelchars.length];
             byte[] labelBytes = new byte[32];
 
@@ -2850,10 +2851,10 @@ public class LxProtocolDevice {
             byte[] labelchars;
             try {
                 labelchars = label.getBytes("UTF-8");
-            } catch(UnsupportedEncodingException ex) {
+            } catch (UnsupportedEncodingException ex) {
                 throw new InternalError();
             }
-            
+
             //byte[] labelBytes = new byte[labelchars.length];
             byte[] labelBytes = new byte[32];
 
@@ -2884,7 +2885,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetVersion 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetVersion extends LxProtocolTypeBase { 
+    public static class GetVersion extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetVersion(byte[] bytes) {
@@ -2892,11 +2893,11 @@ public class LxProtocolDevice {
         }
 
         public GetVersion(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetVersion() {
@@ -2920,11 +2921,11 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateVersion 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateVersion extends LxProtocolTypeBase { 
+    public static class StateVersion extends LxProtocolTypeBase {
         // Fields: vendor, product, version;
-        private UInt32 vendor;			// Field: vendor - Structle::Uint32 byte offset: 0
-        private UInt32 product;			// Field: product - Structle::Uint32 byte offset: 4
-        private UInt32 version;			// Field: version - Structle::Uint32 byte offset: 8
+        private UInt32 vendor;            // Field: vendor - Structle::Uint32 byte offset: 0
+        private UInt32 product;            // Field: product - Structle::Uint32 byte offset: 4
+        private UInt32 version;            // Field: version - Structle::Uint32 byte offset: 8
 
         private static final int PAYLOAD_SIZE = 12;
 
@@ -2933,11 +2934,11 @@ public class LxProtocolDevice {
         }
 
         public StateVersion(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[4];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -2984,13 +2985,13 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            vendor.printValue("vendor");			// Field: vendor - Structle::Uint32 byte offset: 12
-            product.printValue("product");			// Field: product - Structle::Uint32 byte offset: 12
-            version.printValue("version");			// Field: version - Structle::Uint32 byte offset: 12
+            vendor.printValue("vendor");            // Field: vendor - Structle::Uint32 byte offset: 12
+            product.printValue("product");            // Field: product - Structle::Uint32 byte offset: 12
+            version.printValue("version");            // Field: version - Structle::Uint32 byte offset: 12
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt32 vendor, UInt32 product, UInt32 version) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = vendor.getBytes();
 
@@ -3066,7 +3067,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetInfo 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetInfo extends LxProtocolTypeBase { 
+    public static class GetInfo extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetInfo(byte[] bytes) {
@@ -3074,11 +3075,11 @@ public class LxProtocolDevice {
         }
 
         public GetInfo(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetInfo() {
@@ -3089,7 +3090,7 @@ public class LxProtocolDevice {
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
         }
 
         public static void loadMessageDataWithPayloadAtDefaultOffset(byte[] messageData) {
@@ -3117,11 +3118,11 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateInfo 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateInfo extends LxProtocolTypeBase { 
+    public static class StateInfo extends LxProtocolTypeBase {
         // Fields: time, uptime, downtime;
-        private UInt64 time;			// Field: time - Structle::Uint64 byte offset: 0
-        private UInt64 uptime;			// Field: uptime - Structle::Uint64 byte offset: 8
-        private UInt64 downtime;			// Field: downtime - Structle::Uint64 byte offset: 16
+        private UInt64 time;            // Field: time - Structle::Uint64 byte offset: 0
+        private UInt64 uptime;            // Field: uptime - Structle::Uint64 byte offset: 8
+        private UInt64 downtime;            // Field: downtime - Structle::Uint64 byte offset: 16
 
         private static final int PAYLOAD_SIZE = 24;
 
@@ -3130,11 +3131,11 @@ public class LxProtocolDevice {
         }
 
         public StateInfo(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[8];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -3193,13 +3194,13 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            time.printValue("time");			// Field: time - Structle::Uint64 byte offset: 24
-            uptime.printValue("uptime");			// Field: uptime - Structle::Uint64 byte offset: 24
-            downtime.printValue("downtime");			// Field: downtime - Structle::Uint64 byte offset: 24
+            time.printValue("time");            // Field: time - Structle::Uint64 byte offset: 24
+            uptime.printValue("uptime");            // Field: uptime - Structle::Uint64 byte offset: 24
+            downtime.printValue("downtime");            // Field: downtime - Structle::Uint64 byte offset: 24
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt64 time, UInt64 uptime, UInt64 downtime) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = time.getBytes();
 
@@ -3275,7 +3276,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::GetMcuRailVoltage 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class GetMcuRailVoltage extends LxProtocolTypeBase { 
+    public static class GetMcuRailVoltage extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public GetMcuRailVoltage(byte[] bytes) {
@@ -3283,11 +3284,11 @@ public class LxProtocolDevice {
         }
 
         public GetMcuRailVoltage(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public GetMcuRailVoltage() {
@@ -3313,7 +3314,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////   
     public static class StateMcuRailVoltage extends LxProtocolTypeBase {
         // Fields: voltage;
-        private UInt32 voltage;			// Field: voltage - Structle::Uint32 byte offset: 0
+        private UInt32 voltage;            // Field: voltage - Structle::Uint32 byte offset: 0
 
         private static final int PAYLOAD_SIZE = 4;
 
@@ -3322,11 +3323,11 @@ public class LxProtocolDevice {
         }
 
         public StateMcuRailVoltage(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[4];
             member0Data[0] = bytes[initialOffset + 0];
             member0Data[1] = bytes[initialOffset + 1];
@@ -3346,11 +3347,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            voltage.printValue("voltage");			// Field: voltage - Structle::Uint32 byte offset: 4
+            voltage.printValue("voltage");            // Field: voltage - Structle::Uint32 byte offset: 4
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, UInt32 voltage) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = voltage.getBytes();
 
@@ -3395,7 +3396,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::Reboot 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class Reboot extends LxProtocolTypeBase { 
+    public static class Reboot extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public Reboot(byte[] bytes) {
@@ -3403,11 +3404,11 @@ public class LxProtocolDevice {
         }
 
         public Reboot(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public Reboot(Object padding) {
@@ -3418,7 +3419,7 @@ public class LxProtocolDevice {
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
         }
 
         public static void loadMessageDataWithPayloadAtDefaultOffset(byte[] messageData) {
@@ -3446,9 +3447,9 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::SetFactoryTestMode 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class SetFactoryTestMode extends LxProtocolTypeBase { 
+    public static class SetFactoryTestMode extends LxProtocolTypeBase {
         // Fields: on;
-        private Bool8 on;			// Field: on - Structle::Bool byte offset: 0
+        private Bool8 on;            // Field: on - Structle::Bool byte offset: 0
 
         private static final int PAYLOAD_SIZE = 1;
 
@@ -3457,11 +3458,11 @@ public class LxProtocolDevice {
         }
 
         public SetFactoryTestMode(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[1];
             member0Data[0] = bytes[initialOffset + 0];
 
@@ -3479,11 +3480,11 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            on.printValue("on");			// Field: on - Structle::Bool byte offset: 1
+            on.printValue("on");            // Field: on - Structle::Bool byte offset: 1
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, Bool8 on) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = on.getBytes();
 
@@ -3527,7 +3528,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::DisableFactoryTestMode 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class DisableFactoryTestMode extends LxProtocolTypeBase { 
+    public static class DisableFactoryTestMode extends LxProtocolTypeBase {
         private static final int PAYLOAD_SIZE = 0;
 
         public DisableFactoryTestMode(byte[] bytes) {
@@ -3535,11 +3536,11 @@ public class LxProtocolDevice {
         }
 
         public DisableFactoryTestMode(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
         }
 
         public DisableFactoryTestMode(Object padding) {
@@ -3550,7 +3551,7 @@ public class LxProtocolDevice {
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
         }
 
         public static void loadMessageDataWithPayloadAtDefaultOffset(byte[] messageData) {
@@ -3578,10 +3579,10 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     // Lx::Protocol::Device::StateFactoryTestMode 
     ////////////////////////////////////////////////////////////////////////////   
-    public static class StateFactoryTestMode extends LxProtocolTypeBase { 
+    public static class StateFactoryTestMode extends LxProtocolTypeBase {
         // Fields: on, disabled;
-        private Bool8 on;			// Field: on - Structle::Bool byte offset: 0
-        private Bool8 disabled;			// Field: disabled - Structle::Bool byte offset: 1
+        private Bool8 on;            // Field: on - Structle::Bool byte offset: 0
+        private Bool8 disabled;            // Field: disabled - Structle::Bool byte offset: 1
 
         private static final int PAYLOAD_SIZE = 2;
 
@@ -3590,11 +3591,11 @@ public class LxProtocolDevice {
         }
 
         public StateFactoryTestMode(byte[] bytes, int initialOffset) {
-            if(bytes.length != 36 + PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, 
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }                                    
-            
+            }
+
             byte[] member0Data = new byte[1];
             member0Data[0] = bytes[initialOffset + 0];
 
@@ -3622,12 +3623,12 @@ public class LxProtocolDevice {
 
         @Override
         public void printMessageData() {
-            on.printValue("on");			// Field: on - Structle::Bool byte offset: 2
-            disabled.printValue("disabled");			// Field: disabled - Structle::Bool byte offset: 2
+            on.printValue("on");            // Field: on - Structle::Bool byte offset: 2
+            disabled.printValue("disabled");            // Field: disabled - Structle::Bool byte offset: 2
         }
 
         public static void loadMessageDataWithPayloadAtOffset(byte[] messageData, int offset, Bool8 on, Bool8 disabled) {
-            byte[] memberData;		// = name.getBytes();
+            byte[] memberData;        // = name.getBytes();
 
             memberData = on.getBytes();
 
@@ -3682,5 +3683,161 @@ public class LxProtocolDevice {
         public static int getPayloadSize() {
             return PAYLOAD_SIZE;
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Lx::Protocol::Device::GetLocation
+    ////////////////////////////////////////////////////////////////////////////
+    public static class GetLocation extends LxProtocolTypeBase {
+
+        private static final int PAYLOAD_SIZE = 0;
+
+        public GetLocation(byte[] bytes) {
+            this(bytes, 0);
+        }
+
+        public GetLocation(byte[] bytes, int initialOffset) {
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
+            }
+
+        }
+
+        public GetLocation() {
+        }
+
+        @Override
+        public void printMessageData() {
+        }
+
+
+        @Override
+        public byte[] getBytes() {
+            return new byte[0];
+        }
+
+        public static int getPayloadSize() {
+            return PAYLOAD_SIZE;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Lx::Protocol::Device::StateLocation
+    ////////////////////////////////////////////////////////////////////////////
+    public static class StateLocation extends LxProtocolTypeBase {
+        // Fields: location, label, updated_at
+        private byte[] location = new byte[16]; // Field: location - byte[16], offset 0
+        private String label;                   // Field: label - Structle::String 32 bytes, offset 16
+        private UInt64 updated_at;              // Field: updated_at - Structle::Uint64 8 bytes, offset 48
+
+        private static final int PAYLOAD_SIZE = 56;
+
+        public StateLocation(byte[] bytes) {
+            this(bytes, 0);
+        }
+
+        public StateLocation(byte[] bytes, int initialOffset) {
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
+            }
+
+            System.arraycopy(bytes, initialOffset, location, 0, 16);
+
+            int stringLength = 32;
+            int offset = initialOffset + 16;
+            label = extractStringFromByteArray(bytes, stringLength, offset);
+
+            byte[] updatedAtBytes = new byte[8];
+            System.arraycopy(bytes, initialOffset + 48, updatedAtBytes, 0, 8);
+            updated_at = new UInt64(updatedAtBytes);
+        }
+
+        public StateLocation(byte[] location, String label, UInt64 updated_at) {
+            this.location = location;
+            this.label = label;
+            this.updated_at = updated_at;
+        }
+
+        @Override
+        public void printMessageData() {
+            // location.printValue("location");
+            // System.out.println(label);
+            updated_at.printValue("updated_at");
+        }
+
+        @Override
+        public byte[] getBytes() {
+            int offset = 0;
+            byte[] bytes = new byte[PAYLOAD_SIZE];
+
+            System.arraycopy(location, 0, bytes, offset, 16);
+
+            offset = 16;
+
+            offset = addStringToByteArray(label, bytes, 32, offset);
+
+            addUint64ToByteArray(updated_at, bytes, offset);
+
+            return bytes;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+    }
+
+    private static int addStringToByteArray(String s, byte[] arr, int stringLength, int offset) {
+        byte[] labelchars;
+        try {
+            labelchars = s.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            throw new InternalError();
+        }
+        byte[] labelBytes = new byte[stringLength];
+
+        for (int i = 0; i < stringLength; i++) {
+            labelBytes[i] = 0x00;
+        }
+
+        System.arraycopy(labelchars, 0, labelBytes, 0, labelchars.length);
+
+        System.arraycopy(labelBytes, 0, arr, offset, stringLength);
+        return offset + labelchars.length;
+    }
+
+    private static int addUint64ToByteArray(UInt64 uInt64, byte[] arr, int offset) {
+        byte[] uintBytes = uInt64.getBytes();
+        System.arraycopy(uintBytes, 0, arr, offset, uintBytes.length);
+        return offset + uintBytes.length;
+    }
+
+    private static String extractStringFromByteArray(byte[] bytes, int stringLength, int offset) {
+        byte[] labelBytes = new byte[stringLength];
+        System.arraycopy(bytes, offset, labelBytes, 0, stringLength);
+
+        int endOfStringIndex;
+        byte[] subString;
+
+        endOfStringIndex = labelBytes.length;
+
+        for (int i = 0; i < labelBytes.length; i++) {
+            if (labelBytes[i] == 0x00) {
+                endOfStringIndex = i;
+                break;
+            }
+        }
+
+        subString = new byte[endOfStringIndex];
+        System.arraycopy(labelBytes, 0, subString, 0, endOfStringIndex);
+
+        String label = "";
+        try {
+            label = new String(subString, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            throw new InternalError();
+        }
+        return label;
     }
 }
