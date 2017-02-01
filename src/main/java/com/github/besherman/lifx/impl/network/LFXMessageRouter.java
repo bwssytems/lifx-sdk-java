@@ -32,6 +32,7 @@ import com.github.besherman.lifx.impl.entities.internal.LFXTarget;
 import com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -290,7 +291,7 @@ public class LFXMessageRouter {
         InetSocketAddress broadcastAddress;
         try {
             broadcastAddress = networkSettings.getBroadcast();
-        } catch(SocketException ex) {
+        } catch(SocketException | UnknownHostException ex) {
             Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
                     "Failed to get broadcast address", ex);
             return;
