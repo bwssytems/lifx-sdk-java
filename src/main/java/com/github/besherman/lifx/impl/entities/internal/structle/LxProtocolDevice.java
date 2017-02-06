@@ -3788,6 +3788,146 @@ public class LxProtocolDevice {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Lx::Protocol::Device::GetGroup
+    ////////////////////////////////////////////////////////////////////////////
+    public static class GetGroup extends LxProtocolTypeBase {
+
+        private static final int PAYLOAD_SIZE = 0;
+
+        public GetGroup(byte[] bytes) {
+            this(bytes, 0);
+        }
+
+        public GetGroup(byte[] bytes, int initialOffset) {
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
+            }
+
+        }
+
+        public GetGroup() {
+        }
+
+        @Override
+        public void printMessageData() {
+        }
+
+
+        @Override
+        public byte[] getBytes() {
+            return new byte[0];
+        }
+
+        public static int getPayloadSize() {
+            return PAYLOAD_SIZE;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Lx::Protocol::Device::StateGroup
+    ////////////////////////////////////////////////////////////////////////////
+    public static class StateGroup extends LxProtocolTypeBase {
+        // Fields: location, label, updated_at
+        private byte[] location = new byte[16]; // Field: location - byte[16], offset 0
+        private String label;                   // Field: label - Structle::String 32 bytes, offset 16
+        private UInt64 updated_at;              // Field: updated_at - Structle::Uint64 8 bytes, offset 48
+
+        private static final int PAYLOAD_SIZE = 56;
+
+        public StateGroup(byte[] bytes) {
+            this(bytes, 0);
+        }
+
+        public StateGroup(byte[] bytes, int initialOffset) {
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
+            }
+
+            System.arraycopy(bytes, initialOffset, location, 0, 16);
+
+            int stringLength = 32;
+            int offset = initialOffset + 16;
+            label = extractStringFromByteArray(bytes, stringLength, offset);
+
+            byte[] updatedAtBytes = new byte[8];
+            System.arraycopy(bytes, initialOffset + 48, updatedAtBytes, 0, 8);
+            updated_at = new UInt64(updatedAtBytes);
+        }
+
+        public StateGroup(byte[] location, String label, UInt64 updated_at) {
+            this.location = location;
+            this.label = label;
+            this.updated_at = updated_at;
+        }
+
+        @Override
+        public void printMessageData() {
+            // location.printValue("location");
+            // System.out.println(label);
+            updated_at.printValue("updated_at");
+        }
+
+        @Override
+        public byte[] getBytes() {
+            int offset = 0;
+            byte[] bytes = new byte[PAYLOAD_SIZE];
+
+            System.arraycopy(location, 0, bytes, offset, 16);
+
+            offset = 16;
+
+            offset = addStringToByteArray(label, bytes, 32, offset);
+
+            addUint64ToByteArray(updated_at, bytes, offset);
+
+            return bytes;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Lx::Protocol::Device::EchoRequest
+    ////////////////////////////////////////////////////////////////////////////
+    public static class EchoRequest extends LxProtocolTypeBase {
+
+        private static final int PAYLOAD_SIZE = 0;
+
+        public EchoRequest(byte[] bytes) {
+            this(bytes, 0);
+        }
+
+        public EchoRequest(byte[] bytes, int initialOffset) {
+            if (bytes.length != 36 + PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
+            }
+
+        }
+
+        public EchoRequest() {
+        }
+
+        @Override
+        public void printMessageData() {
+        }
+
+
+        @Override
+        public byte[] getBytes() {
+            return new byte[0];
+        }
+
+        public static int getPayloadSize() {
+            return PAYLOAD_SIZE;
+        }
+    }
+
     private static int addStringToByteArray(String s, byte[] arr, int stringLength, int offset) {
         byte[] labelchars;
         try {

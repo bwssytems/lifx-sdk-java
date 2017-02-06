@@ -76,6 +76,11 @@ public class LxProtocol {
         LX_PROTOCOL_DEVICE_STATE_FACTORY_TEST_MODE, // LX_PROTOCOL_DEVICE_STATE_FACTORY_TEST_MODE = 41
         LX_PROTOCOL_DEVICE_GET_LOCATION, // LX_PROTOCOL_DEVICE_GET_LOCATION = 48
         LX_PROTOCOL_DEVICE_STATE_LOCATION, // LX_PROTOCOL_DEVICE_STATE_LOCATION = 50
+        LX_PROTOCOL_DEVICE_GET_GROUP, // LX_PROTOCOL_DEVICE_GET_GROUP = 51
+        LX_PROTOCOL_DEVICE_STATE_GROUP, // LX_PROTOCOL_DEVICE_STATE_GROUP = 53
+        LX_PROTOCOL_DEVICE_ECHO_REQUEST, // LX_PROTOCOL_DEVICE_ECHO_REQUEST = 58
+        LX_PROTOCOL_DEVICE_ECHO_RESPONSE, // LX_PROTOCOL_DEVICE_ECHO_RESPONSE = 59
+        
         LX_PROTOCOL_LIGHT_GET, // LX_PROTOCOL_LIGHT_GET = 101
         LX_PROTOCOL_LIGHT_SET, // LX_PROTOCOL_LIGHT_SET = 102
         LX_PROTOCOL_LIGHT_SET_WAVEFORM, // LX_PROTOCOL_LIGHT_SET_WAVEFORM = 103
@@ -114,6 +119,7 @@ public class LxProtocol {
         LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT, // LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT = 402
         LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE, // LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE = 403
         LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE,				// LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE = 404
+        LX_PROTOCOL_SENSOR_UNKNOWN_1,				// LX_PROTOCOL_SENSOR_UNKOWN_1 = 406
     };
 
     public static final HashMap<Type, Integer> typeValueMap = new HashMap<>();
@@ -207,6 +213,14 @@ public class LxProtocol {
         typeMap.put(48, Type.LX_PROTOCOL_DEVICE_GET_LOCATION);
         typeValueMap.put(Type.LX_PROTOCOL_DEVICE_STATE_LOCATION, 50);
         typeMap.put(50, Type.LX_PROTOCOL_DEVICE_STATE_LOCATION);
+        typeValueMap.put(Type.LX_PROTOCOL_DEVICE_GET_GROUP, 51);
+        typeMap.put(51, Type.LX_PROTOCOL_DEVICE_GET_GROUP);
+        typeValueMap.put(Type.LX_PROTOCOL_DEVICE_STATE_GROUP, 53);
+        typeMap.put(53, Type.LX_PROTOCOL_DEVICE_STATE_GROUP);
+        typeValueMap.put(Type.LX_PROTOCOL_DEVICE_ECHO_REQUEST, 58);
+        typeMap.put(58, Type.LX_PROTOCOL_DEVICE_ECHO_REQUEST);
+        typeValueMap.put(Type.LX_PROTOCOL_DEVICE_ECHO_RESPONSE, 59);
+        typeMap.put(59, Type.LX_PROTOCOL_DEVICE_ECHO_RESPONSE);
         typeValueMap.put(Type.LX_PROTOCOL_LIGHT_GET, 101);
         typeMap.put(101, Type.LX_PROTOCOL_LIGHT_GET);
         typeValueMap.put(Type.LX_PROTOCOL_LIGHT_SET, 102);
@@ -277,6 +291,8 @@ public class LxProtocol {
         typeMap.put(403, Type.LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE);
         typeValueMap.put(Type.LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE, 404);
         typeMap.put(404, Type.LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE);
+        typeValueMap.put(Type.LX_PROTOCOL_SENSOR_UNKNOWN_1, 406);
+        typeMap.put(406, Type.LX_PROTOCOL_SENSOR_UNKNOWN_1);
 
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_SET_SITE, LxProtocolDevice.SetSite.class);
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_GET_PAN_GATEWAY, LxProtocolDevice.GetPanGateway.class);
@@ -321,6 +337,8 @@ public class LxProtocol {
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_DISABLE_FACTORY_TEST_MODE, LxProtocolDevice.DisableFactoryTestMode.class);
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_STATE_FACTORY_TEST_MODE, LxProtocolDevice.StateFactoryTestMode.class);
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_GET_LOCATION, LxProtocolDevice.GetLocation.class);
+        typeClassMap.put(Type.LX_PROTOCOL_DEVICE_GET_GROUP, LxProtocolDevice.GetGroup.class);
+        typeClassMap.put(Type.LX_PROTOCOL_DEVICE_ECHO_REQUEST, LxProtocolDevice.EchoRequest.class);
         typeClassMap.put(Type.LX_PROTOCOL_LIGHT_GET, LxProtocolLight.Get.class);
         typeClassMap.put(Type.LX_PROTOCOL_LIGHT_SET, LxProtocolLight.Set.class);
         typeClassMap.put(Type.LX_PROTOCOL_LIGHT_SET_WAVEFORM, LxProtocolLight.SetWaveform.class);
@@ -357,5 +375,6 @@ public class LxProtocol {
         typeClassMap.put(Type.LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT, LxProtocolSensor.StateAmbientLight.class);
         typeClassMap.put(Type.LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE, LxProtocolSensor.GetDimmerVoltage.class);
         typeClassMap.put(Type.LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE, LxProtocolSensor.StateDimmerVoltage.class);
+        typeClassMap.put(Type.LX_PROTOCOL_SENSOR_UNKNOWN_1, LxProtocolSensor.Unknown.class);
     }
 }
