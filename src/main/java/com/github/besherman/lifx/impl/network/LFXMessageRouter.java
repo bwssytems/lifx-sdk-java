@@ -299,12 +299,7 @@ public class LFXMessageRouter {
 
                     "Failed to get broadcast address", ex);
             return;
-        } catch(UnknownHostException uhe) {
-            logger.log(Level.SEVERE,
-                    "Host not known", uhe);
-            return;
         }
-
         sendToAddress(message, broadcastAddress);
     }
     

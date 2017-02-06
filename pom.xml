@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.besherman</groupId>
     <artifactId>lifx-sdk-java</artifactId>
-    <version>2.1.1</version>
+    <version>2.1.2</version>
     <packaging>jar</packaging>
     <name>com.github.besherman:lifx-sdk-java</name>
     <description>A port of "LIFX Android SDK" to Java</description>
