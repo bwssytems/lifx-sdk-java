@@ -31,50 +31,7 @@ import com.github.besherman.lifx.impl.entities.internal.LFXMessage;
 import com.github.besherman.lifx.impl.entities.internal.LFXSiteID;
 import com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol;
 import com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_DUMMY_LOAD;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_INFO;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_LABEL;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_MCU_RAIL_VOLTAGE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_MESH_FIRMWARE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_MESH_INFO;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_PAN_GATEWAY;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_POWER;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_RESET_SWITCH;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_TAGS;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_TIME;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_VERSION;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_WIFI_FIRMWARE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_GET_WIFI_INFO;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_DUMMY_LOAD;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_INFO;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_LABEL;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_MCU_RAIL_VOLTAGE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_MESH_FIRMWARE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_MESH_INFO;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_PAN_GATEWAY;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_POWER;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_RESET_SWITCH;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_TAGS;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_TIME;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_VERSION;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_WIFI_FIRMWARE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_DEVICE_STATE_WIFI_INFO;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_GET;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_GET_POWER;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_GET_RAIL_VOLTAGE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_GET_TEMPERATURE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_STATE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_STATE_POWER;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_STATE_RAIL_VOLTAGE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_LIGHT_STATE_TEMPERATURE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_SENSOR_GET_AMBIENT_LIGHT;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_WIFI_GET;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_WIFI_GET_ACCESS_POINT;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_WIFI_STATE;
-import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.LX_PROTOCOL_WIFI_STATE_ACCESS_POINT;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -83,6 +40,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.github.besherman.lifx.impl.entities.internal.structle.LxProtocol.Type.*;
 
 /**
  * Keeps track of sent messages and if there is no response for a while the
@@ -208,6 +167,7 @@ public class LFXResponseTracker {
         map.put(LX_PROTOCOL_DEVICE_GET_VERSION, LX_PROTOCOL_DEVICE_STATE_VERSION);
         map.put(LX_PROTOCOL_DEVICE_GET_INFO, LX_PROTOCOL_DEVICE_STATE_INFO);
         map.put(LX_PROTOCOL_DEVICE_GET_MCU_RAIL_VOLTAGE, LX_PROTOCOL_DEVICE_STATE_MCU_RAIL_VOLTAGE);
+        map.put(LX_PROTOCOL_DEVICE_GET_LOCATION, LX_PROTOCOL_DEVICE_STATE_LOCATION);
         map.put(LX_PROTOCOL_LIGHT_GET, LX_PROTOCOL_LIGHT_STATE);
         map.put(LX_PROTOCOL_LIGHT_GET_RAIL_VOLTAGE, LX_PROTOCOL_LIGHT_STATE_RAIL_VOLTAGE);
         map.put(LX_PROTOCOL_LIGHT_GET_TEMPERATURE, LX_PROTOCOL_LIGHT_STATE_TEMPERATURE);

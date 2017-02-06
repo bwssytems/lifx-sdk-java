@@ -41,7 +41,7 @@ public interface LFXLightDetails {
      * Returns the lights temperature in degrees Celsius.
      */
     float getTemperature();
-    
+
     /**
      * Returns the uptime in milliseconds.
      */
@@ -51,7 +51,7 @@ public interface LFXLightDetails {
      * Returns the downtime in milliseconds.
      */
     long getDowntime();
-    
+
     /**
      * Returns the position of the reset switch.
      */
@@ -61,17 +61,17 @@ public interface LFXLightDetails {
      * Returns information about the mesh interface.
      */
     LFXInterfaceStat getMeshStat();
-    
+
     /**
      * Returns information about the wifi interface.
      */
-    LFXInterfaceStat getWifiStat();    
-    
+    LFXInterfaceStat getWifiStat();
+
     /**
      * Returns information about the mesh firmware.
      */
     LFXInterfaceFirmware getMeshFirmware();
-    
+
     /**
      * Returns information about the wifi firmware.
      */
@@ -86,8 +86,12 @@ public interface LFXLightDetails {
      * Returns the MCU rail voltage.
      */
     float getMCURailVoltage();
-    
+
+    String getLocation();
+
     void addPropertyChangeListener(PropertyChangeListener l);
+
     void addPropertyChangeListener(String propertyName, PropertyChangeListener l);
-    void removePropertyChangeListener(PropertyChangeListener l);    
+
+    void removePropertyChangeListener(PropertyChangeListener l);
 }

@@ -50,8 +50,11 @@ import java.util.logging.Logger;
  * {@link LFXLightHandler}. In order to know which light should get what message
  * and where to send messages it also tracks routing information.
  */
-public class LFXMessageRouter {    
-    private final LFXRoutingTable routingTable = new LFXRoutingTable();    
+public class LFXMessageRouter {
+
+    private static final Logger logger = Logger.getLogger(LFXMessageRouter.class.getName());
+
+    private final LFXRoutingTable routingTable = new LFXRoutingTable();
     private final LFXNetworkSettings networkSettings;
     private final LFXLightHandlerModel handlers;
     private final BlockingQueue<LFXSocketMessage> outgoingQueue;
@@ -103,7 +106,7 @@ public class LFXMessageRouter {
                         handler.setRouter(LFXMessageRouter.this);
                         handler.open();
                     } catch(Exception ex) {
-                        Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+                        logger.log(Level.SEVERE,
                                 "Failed to open LightHandler", ex);
                     }                    
                 }
@@ -113,7 +116,7 @@ public class LFXMessageRouter {
             handlers.addLightHandlerModelListener(lightHandlerModelListener);
             
         } else {
-            Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+            logger.log(Level.SEVERE,
                     "MessageRouter already opened");
         }
     }
@@ -131,7 +134,7 @@ public class LFXMessageRouter {
                         handler.close();
                         handler.setRouter(null);
                     } catch(Exception ex) {
-                        Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+                        logger.log(Level.SEVERE,
                                 "Failed to close LightHandler", ex);
                     }
                 }
@@ -142,7 +145,7 @@ public class LFXMessageRouter {
 
             timerQueue.close();        
         } else {
-            Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+            logger.log(Level.SEVERE,
                     "MessageRouter already closed");
         }
     }    
@@ -211,7 +214,7 @@ public class LFXMessageRouter {
                 try {                    
                     handler.handleMessage(targets, message);
                 } catch(Exception ex) {
-                    Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+                    logger.log(Level.SEVERE,
                             "Failed to handle message", ex);
                 }                
             }
@@ -281,7 +284,7 @@ public class LFXMessageRouter {
                 sendToAddress(message, address);                
             } else {
                 // this should not happen
-                Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+                logger.log(Level.SEVERE,
                         "No address for gateway, this should not happen");
             }            
         }        
@@ -293,10 +296,15 @@ public class LFXMessageRouter {
             broadcastAddress = networkSettings.getBroadcast();
         } catch(SocketException | UnknownHostException ex) {
             Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+
                     "Failed to get broadcast address", ex);
             return;
+        } catch(UnknownHostException uhe) {
+            logger.log(Level.SEVERE,
+                    "Host not known", uhe);
+            return;
         }
-        
+
         sendToAddress(message, broadcastAddress);
     }
     
@@ -312,7 +320,7 @@ public class LFXMessageRouter {
         byte[] messageData = message.getMessageDataRepresentation();
         LFXSocketMessage sm = new LFXSocketMessage(messageData, address, getMessagePriority(message));
         if(!outgoingQueue.offer(sm)) {
-            Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+            logger.log(Level.SEVERE,
                     "Failed to send message, queue is full");
         }         
         responseTracker.trackResponse(message, sm);
@@ -388,7 +396,7 @@ public class LFXMessageRouter {
                     handler.setRouter(LFXMessageRouter.this);
                     handler.open();
                 } catch(Exception ex) {
-                    Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+                    logger.log(Level.SEVERE,
                             "Failed to open LightHandler", ex);
                 }                
             }
@@ -400,7 +408,7 @@ public class LFXMessageRouter {
                 handler.close();
                 handler.setRouter(null);
             } catch(Exception ex) {
-                Logger.getLogger(LFXMessageRouter.class.getName()).log(Level.SEVERE, 
+                logger.log(Level.SEVERE,
                         "Failed to close LightHandler", ex);
             }
         }

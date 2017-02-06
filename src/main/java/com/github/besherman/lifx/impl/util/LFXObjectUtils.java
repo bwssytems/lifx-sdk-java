@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2014 Richard.
+ * Copyright 2014 Richard Löfberg.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,30 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.github.besherman.lifx.examples.groups;
-
-import com.github.besherman.lifx.LFXClient;
-import com.github.besherman.lifx.LFXGroup;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package com.github.besherman.lifx.impl.util;
 
 /**
- * Finds the group "Test Group" and changes the color of all lights in the group.
+ * Utility methods for objects. Copied from Java 1.7 source for supporting older JDK API versions.
+ * Mostly, provides support for pre-Lollipop Android devices.
  */
-public class GroupEx07ChangeColor {
-    public static void main(String[] args) throws Exception {
-        LFXClient client = new LFXClient();
-        client.open(true);
-        try {
-            LFXGroup group = client.getGroups().get("Test Group");
-            if(group == null) {
-                Logger.getLogger(GroupEx07ChangeColor.class.getName()).log(Level.INFO, "No test group found");
-                return;
-            }
-            group.setColor(0xFFFF00FF);
-        } finally {
-            client.close();
-        }
-        
-    }    
+public class LFXObjectUtils {
+
+    /**
+     * Returns 0 for null or {@code o.hashCode()}.
+     */
+    public static int hashCode(Object o) {
+        return (o == null) ? 0 : o.hashCode();
+    }
+
+    /**
+     * Null-safe equivalent of {@code a.equals(b)}.
+     */
+    public static boolean equals(Object a, Object b) {
+        return (a == null) ? (b == null) : a.equals(b);
+    }
+
 }
