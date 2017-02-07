@@ -338,8 +338,9 @@ public class LxProtocol {
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_STATE_FACTORY_TEST_MODE, LxProtocolDevice.StateFactoryTestMode.class);
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_GET_LOCATION, LxProtocolDevice.GetLocation.class);
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_GET_GROUP, LxProtocolDevice.GetGroup.class);
+        typeClassMap.put(Type.LX_PROTOCOL_DEVICE_STATE_GROUP, LxProtocolDevice.StateGroup.class);
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_ECHO_REQUEST, LxProtocolDevice.EchoRequest.class);
-        typeClassMap.put(Type.LX_PROTOCOL_DEVICE_ECHO_RESPONSE, LxProtocolDevice.EchoRequest.class);
+        typeClassMap.put(Type.LX_PROTOCOL_DEVICE_ECHO_RESPONSE, LxProtocolDevice.EchoResponse.class);
         typeClassMap.put(Type.LX_PROTOCOL_LIGHT_GET, LxProtocolLight.Get.class);
         typeClassMap.put(Type.LX_PROTOCOL_LIGHT_SET, LxProtocolLight.Set.class);
         typeClassMap.put(Type.LX_PROTOCOL_LIGHT_SET_WAVEFORM, LxProtocolLight.SetWaveform.class);

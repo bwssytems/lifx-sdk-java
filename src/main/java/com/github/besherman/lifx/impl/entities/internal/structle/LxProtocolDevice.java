@@ -3896,21 +3896,58 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     public static class EchoRequest extends LxProtocolTypeBase {
 
-        private static final int PAYLOAD_SIZE = 0;
-
+        private static final int PAYLOAD_SIZE = 64;
+        private byte[] thebytes;
         public EchoRequest(byte[] bytes) {
             this(bytes, 0);
         }
 
         public EchoRequest(byte[] bytes, int initialOffset) {
-            if (bytes.length != 36 + PAYLOAD_SIZE) {
+            if (bytes.length != PAYLOAD_SIZE) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
             }
-
+            thebytes = new byte[bytes.length];
+            System.arraycopy(bytes, 0, thebytes, 0, bytes.length);
         }
 
         public EchoRequest() {
+        }
+
+        @Override
+        public void printMessageData() {
+        }
+
+
+        @Override
+        public byte[] getBytes() {
+            return thebytes;
+        }
+
+        public static int getPayloadSize() {
+            return PAYLOAD_SIZE;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Lx::Protocol::Device::EchoResponse
+    ////////////////////////////////////////////////////////////////////////////
+    public static class EchoResponse extends LxProtocolTypeBase {
+
+        private static final int PAYLOAD_SIZE = 64;
+
+        public EchoResponse(byte[] bytes) {
+            this(bytes, 0);
+        }
+
+        public EchoResponse(byte[] bytes, int initialOffset) {
+            if (bytes.length != PAYLOAD_SIZE) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
+            }
+        }
+
+        public EchoResponse() {
         }
 
         @Override

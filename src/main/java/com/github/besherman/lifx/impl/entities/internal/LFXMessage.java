@@ -335,6 +335,8 @@ public class LFXMessage {
             case LX_PROTOCOL_DEVICE_STATE_MCU_RAIL_VOLTAGE:
             case LX_PROTOCOL_DEVICE_STATE_FACTORY_TEST_MODE:
             case LX_PROTOCOL_DEVICE_STATE_LOCATION:
+            case LX_PROTOCOL_DEVICE_STATE_GROUP:
+            case LX_PROTOCOL_DEVICE_ECHO_REQUEST:
             case LX_PROTOCOL_LIGHT_STATE:
             case LX_PROTOCOL_LIGHT_STATE_RAIL_VOLTAGE:
             case LX_PROTOCOL_LIGHT_STATE_TEMPERATURE:
@@ -348,7 +350,7 @@ public class LFXMessage {
             //case LX_PROTOCOL_WIFI_STATE_ACCESS_POINTS:
             case LX_PROTOCOL_WIFI_STATE_ACCESS_POINT:
             case LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT:
-            case LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE:            
+            case LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE:     
                 return true;
         }
         return false;        
