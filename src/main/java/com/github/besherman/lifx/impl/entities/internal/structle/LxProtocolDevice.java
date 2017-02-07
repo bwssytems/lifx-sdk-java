@@ -3903,12 +3903,8 @@ public class LxProtocolDevice {
         }
 
         public EchoRequest(byte[] bytes, int initialOffset) {
-            if (bytes.length != PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }
             thebytes = new byte[bytes.length];
-            System.arraycopy(bytes, 0, thebytes, 0, bytes.length);
+            System.arraycopy(bytes, initialOffset, thebytes, 0, bytes.length);
         }
 
         public EchoRequest() {
@@ -3941,10 +3937,6 @@ public class LxProtocolDevice {
         }
 
         public EchoResponse(byte[] bytes, int initialOffset) {
-            if (bytes.length != PAYLOAD_SIZE) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-                        String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
-            }
         }
 
         public EchoResponse() {
