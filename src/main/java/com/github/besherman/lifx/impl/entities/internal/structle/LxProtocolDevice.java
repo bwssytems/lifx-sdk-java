@@ -3830,7 +3830,7 @@ public class LxProtocolDevice {
     ////////////////////////////////////////////////////////////////////////////
     public static class StateGroup extends LxProtocolTypeBase {
         // Fields: location, label, updated_at
-        private byte[] location = new byte[16]; // Field: location - byte[16], offset 0
+        private byte[] group = new byte[16]; // Field: group - byte[16], offset 0
         private String label;                   // Field: label - Structle::String 32 bytes, offset 16
         private UInt64 updated_at;              // Field: updated_at - Structle::Uint64 8 bytes, offset 48
 
@@ -3846,7 +3846,7 @@ public class LxProtocolDevice {
                         String.format("payload has more data than advertised: %s", StructleTypes.bytesToString(bytes)));
             }
 
-            System.arraycopy(bytes, initialOffset, location, 0, 16);
+            System.arraycopy(bytes, initialOffset, group, 0, 16);
 
             int stringLength = 32;
             int offset = initialOffset + 16;
@@ -3857,15 +3857,15 @@ public class LxProtocolDevice {
             updated_at = new UInt64(updatedAtBytes);
         }
 
-        public StateGroup(byte[] location, String label, UInt64 updated_at) {
-            this.location = location;
+        public StateGroup(byte[] group, String label, UInt64 updated_at) {
+            this.group = group;
             this.label = label;
             this.updated_at = updated_at;
         }
 
         @Override
         public void printMessageData() {
-            // location.printValue("location");
+            // group.printValue("group");
             // System.out.println(label);
             updated_at.printValue("updated_at");
         }
@@ -3875,7 +3875,7 @@ public class LxProtocolDevice {
             int offset = 0;
             byte[] bytes = new byte[PAYLOAD_SIZE];
 
-            System.arraycopy(location, 0, bytes, offset, 16);
+            System.arraycopy(group, 0, bytes, offset, 16);
 
             offset = 16;
 

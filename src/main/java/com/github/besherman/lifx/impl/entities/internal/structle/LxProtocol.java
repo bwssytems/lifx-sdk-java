@@ -119,7 +119,7 @@ public class LxProtocol {
         LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT, // LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT = 402
         LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE, // LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE = 403
         LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE,				// LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE = 404
-        LX_PROTOCOL_SENSOR_UNKNOWN_1,				// LX_PROTOCOL_SENSOR_UNKOWN_1 = 406
+        LX_PROTOCOL_WAN_CLOUD_MSG_406,				// LX_PROTOCOL_WAN_CLOUD_MSG_406 = 406
     };
 
     public static final HashMap<Type, Integer> typeValueMap = new HashMap<>();
@@ -291,8 +291,8 @@ public class LxProtocol {
         typeMap.put(403, Type.LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE);
         typeValueMap.put(Type.LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE, 404);
         typeMap.put(404, Type.LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE);
-        typeValueMap.put(Type.LX_PROTOCOL_SENSOR_UNKNOWN_1, 406);
-        typeMap.put(406, Type.LX_PROTOCOL_SENSOR_UNKNOWN_1);
+        typeValueMap.put(Type.LX_PROTOCOL_WAN_CLOUD_MSG_406, 406);
+        typeMap.put(406, Type.LX_PROTOCOL_WAN_CLOUD_MSG_406);
 
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_SET_SITE, LxProtocolDevice.SetSite.class);
         typeClassMap.put(Type.LX_PROTOCOL_DEVICE_GET_PAN_GATEWAY, LxProtocolDevice.GetPanGateway.class);
@@ -375,6 +375,5 @@ public class LxProtocol {
         typeClassMap.put(Type.LX_PROTOCOL_SENSOR_STATE_AMBIENT_LIGHT, LxProtocolSensor.StateAmbientLight.class);
         typeClassMap.put(Type.LX_PROTOCOL_SENSOR_GET_DIMMER_VOLTAGE, LxProtocolSensor.GetDimmerVoltage.class);
         typeClassMap.put(Type.LX_PROTOCOL_SENSOR_STATE_DIMMER_VOLTAGE, LxProtocolSensor.StateDimmerVoltage.class);
-        typeClassMap.put(Type.LX_PROTOCOL_SENSOR_UNKNOWN_1, LxProtocolSensor.Unknown.class);
     }
 }

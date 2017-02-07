@@ -942,4 +942,28 @@ public class LxProtocolWan {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    //
+    ////////////////////////////////////////////////////////////////////////////
+    public static class Unknown extends LxProtocolTypeBase { // Struct: Unknown
+    	private byte[] thebytes;
+        public Unknown(byte[] bytes) {
+            this(bytes, 0);
+        }
+
+        public Unknown(byte[] bytes, int initialOffset) {
+        		thebytes = bytes;
+         }
+
+
+        @Override
+        public void printMessageData() {
+            // noop
+        }
+
+        @Override
+        public byte[] getBytes() {
+        	return new byte[0];
+        }
+    }
 }
